@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:17:38 by fbenech           #+#    #+#             */
-/*   Updated: 2025/11/18 20:45:33 by fbenech          ###   ########.fr       */
+/*   Updated: 2025/11/19 16:57:18 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	map_check(nbr_entitys *etnt, const char *filename, cord *co, size *size)
 {
-	int			i;
+	int			x;
 	int			y;
 	static char	**map;
 
@@ -24,16 +24,17 @@ int	map_check(nbr_entitys *etnt, const char *filename, cord *co, size *size)
 		return (print_error("The map is not rectangular !"));
 	while (map[++y])
 	{
-		i = 0;
-		while (map[y][i])
+		x = -1;
+		while (map[y][++x])
 		{
-			if (!is_all_good(map[y][i], etnt))
+			if (!is_all_good(map[y][x], etnt))
 				return (print_error("Unvalid char in map"));
-			i++;
 		}
 	}
 	if	(etnt->ctE != 1 || etnt->ctC < 1 || etnt->ctP != 1)
 		return (print_error("Wrong number of entitys"));
+	if (!ft_is_surrounded(map))
+		return (print_error("The map is not surrounded !"));
 	get_coordinates(co, map);
 	get_range(size, map);
 	flood_fill(map, co, size, co->Px, co->Py);
@@ -98,12 +99,12 @@ void flood_fill(char **map, cord *co, size *size, int x, int y)
 	return ;
 }
 
-int main(void)
-{
-    nbr_entitys entity = {0};
-	cord co = {0};
-	size size = {0};
-    char filename[8] = "map.ber";
-    map_check(&entity, filename, &co, &size);
-    return (0);
-}
+// int main(void)
+// {
+//     nbr_entitys entity = {0};
+// 	cord co = {0};
+// 	size size = {0};
+//     char filename[8] = "map.ber";
+//     map_check(&entity, filename, &co, &size);
+//     return (0);
+// }

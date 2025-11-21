@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 20:59:31 by fbenech           #+#    #+#             */
-/*   Updated: 2025/11/18 20:44:45 by fbenech          ###   ########.fr       */
+/*   Updated: 2025/11/19 16:04:54 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,34 @@ int	check_flood_fill(char **map)
 		y++;
 	}
 	ft_printf("The map is valid !\n");
+	return (1);
+}
+
+int	ft_is_surrounded(char **map)
+{
+	int y;
+	int x;
+
+	x = -1;
+	y = 1;
+	while (map[0][++x])
+	{
+		if (map[0][x] != '1')	
+			return (0);
+	}
+	while (map[y])
+	{
+		if (map[y][0] != '1')
+			return (0);
+		if (map[y][ft_strlen(map[y]) -1] != '1')
+			return (0);
+		y++;
+	}
+	x = 0;
+	while (map[y - 1][++x])
+	{
+		if (map[y - 1][x] != '1')	
+			return (0);
+	}
 	return (1);
 }

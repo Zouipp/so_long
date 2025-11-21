@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:32:09 by fbenech           #+#    #+#             */
-/*   Updated: 2025/11/18 19:24:12 by fbenech          ###   ########.fr       */
+/*   Updated: 2025/11/19 17:53:03 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ void	get_coordinates(cord *co, char **map);
 void	get_range(size *size, char **map);
 void	flood_fill(char **map, cord *co, size *size, int x, int y);
 int		check_flood_fill(char **map);
+int		ft_is_surrounded(char **map);
+int		keypress(int keycode, void *param);
+void	setup_hooks(void *win_ptr);
+int		close_window(void *param);
+void	*display_window(void *mlx_ptr, int x, int y, char *name);
+void	*init_mlx(void);
 
 # endif
