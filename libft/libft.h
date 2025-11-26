@@ -6,7 +6,7 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 18:24:33 by fbenech           #+#    #+#             */
-/*   Updated: 2025/11/16 19:18:12 by fbenech          ###   ########.fr       */
+/*   Updated: 2025/11/24 21:22:50 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,8 @@ int	ft_toupperhex(unsigned int c);
 int	ft_putptrp2(unsigned long n);
 int	ft_putptrp1(void *n);
 
+//moi qu'ai rajoute
+
+char *copy_array(char *str);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: fbenech <fbenech@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 20:59:31 by fbenech           #+#    #+#             */
-/*   Updated: 2025/11/19 16:04:54 by fbenech          ###   ########.fr       */
+/*   Updated: 2025/11/25 09:39:46 by fbenech          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/so_long.h"
+#include "../includes/so_long.h"
 
 int	is_rectangular(char **map)
 {
@@ -27,7 +27,7 @@ int	is_rectangular(char **map)
 	return (1);
 }
 
-void get_coordinates(cord *co, char **map)
+char	**get_coordinates(cord *co, char **map)
 {
 	int	x;
 	int	y;
@@ -36,9 +36,9 @@ void get_coordinates(cord *co, char **map)
 	y = 0;
 	while (map[y])
 	{
-		while(map[y][x])
+		while (map[y][x])
 		{
-			if(map[y][x] == 'P')
+			if (map[y][x] == 'P')
 			{
 				co->Px = x;
 				co->Py = y;
@@ -53,16 +53,17 @@ void get_coordinates(cord *co, char **map)
 		x = 0;
 		y++;
 	}
-	return ;
+	return (get_range(co, map));
 }
 
-void get_range(size *size, char **map)
+char	**get_range(cord *size, char **map)
 {
 	size->y = 0;
-	size->x = ft_strlen(map[size->y]);;
-	
-	while(map[size->y + 1])
+	size->x = ft_strlen(map[size->y]);
+	size->map = map;
+	while (map[size->y])
 		size->y++;
+	return (get_map_copy(map));
 }
 
 int	check_flood_fill(char **map)
@@ -77,40 +78,45 @@ int	check_flood_fill(char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'C' || map[y][x] == 'E')
-				return(print_error("Unvalid path !"));
+			{
+				print_error("Unvalid path !");
+				free_map(map);
+				exit (3);
+			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
 	ft_printf("The map is valid !\n");
+	free_map(map);
 	return (1);
 }
 
 int	ft_is_surrounded(char **map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	x = -1;
 	y = 1;
 	while (map[0][++x])
 	{
-		if (map[0][x] != '1')	
+		if (map[0][x] != '1')
 			return (0);
 	}
 	while (map[y])
 	{
 		if (map[y][0] != '1')
 			return (0);
-		if (map[y][ft_strlen(map[y]) -1] != '1')
+		if (map[y][ft_strlen(map[y]) - 1] != '1')
 			return (0);
 		y++;
 	}
 	x = 0;
 	while (map[y - 1][++x])
 	{
-		if (map[y - 1][x] != '1')	
+		if (map[y - 1][x] != '1')
 			return (0);
 	}
 	return (1);
